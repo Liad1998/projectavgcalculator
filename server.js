@@ -27,11 +27,11 @@ app.post('/', async (req, res) => {
     const citizenshipGrade = parseInt(req.body.citizenship.trim(), 10) || 0;
 
     const grades = [mathGrade, englishGrade, hebrewGrade, bibleGrade, cultureGrade, physicsGrade, computerscienceGrade, historyGrade, citizenshipGrade];
-    // Check if the input is a valid numeric grade
-    if (!grades.every(grade => grade <= 100)) {
-        // Redirect to the same page with error message as query parameter
-        return res.redirect('/?error=Please enter valid numeric grades less equal to 100');
-    }
+    // Check if the input grades are valid (between 0 and 100)
+    if (!grades.every(grade => grade >= 0 && grade <= 100)) {
+    // Redirect to the same page with error message as query parameter
+        return res.redirect('/?error=Please enter valid numeric grades between 0 and 100');
+}
 
     // Check if the input is a valid numeric ID with up to 9 digits
     if (isNaN(parseInt(name)) || name.length != 9) {
@@ -73,8 +73,6 @@ app.post('/', async (req, res) => {
         console.error('Error storing data in Redis:', error);
         res.status(500).send('Internal Server Error');
     }
-    // Assuming you want to redirect to '/keys' after processing the POST request
-    res.redirect('/keys');
 });
 
 
