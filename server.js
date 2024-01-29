@@ -70,7 +70,41 @@ app.post('/', async (req, res) => {
     res.redirect('/keys');
 });
 
-// Express route to retrieve all data from Redis
+// // Express route to retrieve all data from Redis
+// app.get('/keys', (req, res) => {
+//     const redisClient = createClient({
+//         password: 'i4qy8JGPQPvwuc4ujHOm7UoCtHs7fZnd',
+//         host: 'redis-15461.c326.us-east-1-3.ec2.cloud.redislabs.com',
+//         port: 15461
+//     });
+    
+//     // Use the KEYS command to retrieve all keys
+//     redisClient.keys('*', (err, keys) => {
+//         if (err) {
+//             console.error('Error retrieving keys from Redis:', err);
+//             return res.status(500).send('Error retrieving keys from Redis');
+//         }
+        
+//         // Iterate over each key and retrieve its value
+//         const data = {};
+//         keys.forEach(key => {
+//             redisClient.get(key, (err, value) => {
+//                 if (err) {
+//                     console.error(`Error retrieving value for key ${key}:`, err);
+//                     return res.status(500).send(`Error retrieving value for key ${key}`);
+//                 }
+//                 data[key] = value; // Store the key-value pair in the data object
+//             });
+//         });
+
+//         // Close the Redis client after retrieving all data
+//         redisClient.quit(() => {
+//             res.json(data); // Send the data object as the response
+//         });
+//     });
+//     console.log('Data recieved!');
+// });
+// Express route to retrieve all data from Redis and display as a table
 app.get('/keys', (req, res) => {
     const redisClient = createClient({
         password: 'i4qy8JGPQPvwuc4ujHOm7UoCtHs7fZnd',
@@ -86,24 +120,41 @@ app.get('/keys', (req, res) => {
         }
         
         // Iterate over each key and retrieve its value
-        const data = {};
+        const data = [];
+        let counter = 0;
         keys.forEach(key => {
             redisClient.get(key, (err, value) => {
                 if (err) {
                     console.error(`Error retrieving value for key ${key}:`, err);
                     return res.status(500).send(`Error retrieving value for key ${key}`);
                 }
-                data[key] = value; // Store the key-value pair in the data object
+                data.push({ key, value }); // Store the key-value pair in the data array
+
+                // Check if all values have been retrieved
+                counter++;
+                if (counter === keys.length) {
+                    // Close the Redis client after retrieving all data
+                    redisClient.quit(() => {
+                        // Render the HTML table
+                        const tableHtml = generateTableHtml(data);
+                        res.send(tableHtml);
+                    });
+                }
             });
         });
-
-        // Close the Redis client after retrieving all data
-        redisClient.quit(() => {
-            res.json(data); // Send the data object as the response
-        });
     });
-    console.log('Data recieved!');
 });
+
+// Function to generate HTML table from JSON data
+function generateTableHtml(data) {
+    let tableHtml = '<table border="1">';
+    tableHtml += '<tr><th>Key</th><th>Value</th></tr>';
+    data.forEach(item => {
+        tableHtml += `<tr><td>${item.key}</td><td>${item.value}</td></tr>`;
+    });
+    tableHtml += '</table>';
+    return tableHtml;
+}
 
 
 app.listen(port, () => {

@@ -6,72 +6,115 @@
     <title>High School Learning Resources</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
         }
         h1 {
             text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin: 20px 0;
         }
         .subject {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
         .subject h2 {
             margin-bottom: 10px;
+            color: #333;
         }
         .website {
             margin-left: 20px;
+            color: #3498db;
         }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #000000;
+            position: fixed;
+            top: 0;
+            width: 100%;
+          }
+          
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+          
+        .navbar a:hover {
+            background: #ddd;
+            color: black;
+          }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="http://localhost:3000/keys">See All Grades</a>
+        <a href="index2.html">Improve Your Grades</a>
+    </div>
+
     <h1>High School Learning Resources</h1>
     
     <div class="subject">
         <h2>Mathematics</h2>
-        <div class="website">Khan Academy - <a href="https://www.khanacademy.org/math">https://www.khanacademy.org/math</a></div>
-        <div class="website">IXL - <a href="https://www.ixl.com/math">https://www.ixl.com/math</a></div>
+        <div class="website"><a href="https://www.khanacademy.org/math">Khan Academy</a></div>
+        <div class="website"><a href="https://www.ixl.com/math">IXL</a></div>
     </div>
 
     <div class="subject">
         <h2>Computer Science</h2>
-        <div class="website">udemy - <a href="https://www.udemy.com">https://www.udemy.com</a></div>
+        <div class="website"><a href="https://www.udemy.com">udemy</a></div>
     </div>
 
     <div class="subject">
         <h2>English</h2>
-        <div class="website">ReadWriteThink - <a href="http://www.readwritethink.org/">http://www.readwritethink.org/</a></div>
-        <div class="website">Grammarly - <a href="https://www.grammarly.com/">https://www.grammarly.com/</a></div>
+        <div class="website"><a href="http://www.readwritethink.org/">ReadWriteThink</a></div>
+        <div class="website"><a href="https://www.grammarly.com/">Grammarly</a></div>
     </div>
 
     <div class="subject">
         <h2>History</h2>
-        <div class="website">BBC Bitesize - <a href="https://www.bbc.co.uk/bitesize/subjects/zk26n39">https://www.bbc.co.uk/bitesize/subjects/zk26n39</a></div>
-        <div class="website">History.com - <a href="https://www.history.com/">https://www.history.com/</a></div>
+        <div class="website"><a href="https://www.bbc.co.uk/bitesize/subjects/zk26n39">BBC Bitesize</a></div>
+        <div class="website"><a href="https://www.history.com/">History.com</a></div>
     </div>
 
     <div class="subject">
         <h2>HEBREW</h2>
-        <div class="website">ulpan-adi - <a href="https://www.ulpan-adi.co.il/">https://www.ulpan-adi.co.il/</a></div>
+        <div class="website"><a href="https://www.ulpan-adi.co.il/">ulpan-adi</a></div>
     </div>
 
     <div class="subject">
         <h2>CULTURE</h2>
-        <div class="website">inspireculture - <a href="https://www.inspireculture.org.uk/">https://www.inspireculture.org.uk/</a></div>
+        <div class="website"><a href="https://www.inspireculture.org.uk/">inspireculture</a></div>
     </div>
 
     <div class="subject">
         <h2>PHYSICS</h2>
-        <div class="website">khanacademy - <a href="https://www.khanacademy.org/science/physics">https://www.khanacademy.org/science/physics</a></div>
+        <div class="website"><a href="https://www.khanacademy.org/science/physics">khanacademy</a></div>
     </div>
 
     <div class="subject">
         <h2>BIBLE</h2>
-        <div class="website">bible - <a href="https://bibleproject.com/">https://bibleproject.com/</a></div>
+        <div class="website"><a href="https://bibleproject.com/">bible</a></div>
     </div>
 
     <div class="subject">
         <h2>CITIZENSHIP</h2>
-        <div class="website">citizenship - <a href="https://www.uscis.gov/citizenship/learn-about-citizenship">https://www.uscis.gov/citizenship/learn-about-citizenship</a></div>
+        <div class="website"><a href="https://www.uscis.gov/citizenship/learn-about-citizenship">citizenship</a></div>
     </div>
 </body>
 </html>

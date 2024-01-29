@@ -4,72 +4,241 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> GPA Calculator </title>
+    <title>GPA Calculator</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0%;
+            background-color: #f8f9fa;
+            color: #333;
         }
+
+        .navbar {
+          overflow: hidden;
+          background-color: #000000;
+          position: fixed;
+          top: 0;
+          width: 100%;
+        }
+        
+        .navbar a {
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .navbar a:hover {
+          background: #ddd;
+          color: black;
+        }
+        
+        .main {
+          padding: 20px;
+          margin-top: 15px;
+          height: 1500px; /* Used in this example to enable scrolling */
+        }
+
         h1 {
             text-align: center;
+            padding: 40px;
+            color: #333;
         }
-        .subject {
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
             margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
-        .subject h2 {
-            margin-bottom: 10px;
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
         }
-        .website {
-            margin-left: 20px;
+
+        input[type="submit"] {
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 25px;
+            padding: 10px;
+            width: 150px;
+            font-size: 14px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004e83;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            height: 10%;
+            border-radius: 20px;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>GPA Calculator</h1>
-    <a href="http://localhost:3000/keys">Press Here To See The All Grades</a>
-    <br>
-    <a href="index2.html">Press Here To Improve Your Grades !</a>
-    <form method="post" action="/">
-        <label for="name">Your Name:</label>
-        <input type="text" name="name" required><br>
-        <img src="images/math.jpg" alt="MATH IMAGE">
-        <br>
-        <label for="math">MATH:</label>
-        <input type="text" name="math" required><br>
-        <img src="images/english.jpg" alt="ENGLISH IMAGE">
-        <br>
-        <label for="english">ENGLISH:</label>
-        <input type="text" name="english" required><br>
-        <img src="images/hebrew.jpg" alt="HEBREW IMAGE">
-        <br>
-        <label for="hebrew">HEBREW:</label>
-        <input type="text" name="hebrew" required><br>
-        <img src="images/bible.jpg" alt="BIBLE IMAGE">
-        <br>
-        <label for="bible">BIBLE:</label>
-        <input type="text" name="bible" required><br>
-        <img src="images/culture.jpg" alt="CULTURE IMAGE"> 
-        <br>  
-        <label for="culture">CULTURE:</label>
-        <input type="text" name="culture" required><br>
-        <img src="images/physics.jpg" alt="PHYSICS IMAGE">
-        <br>
-        <label for="physics">PHYSICS:</label>
-        <input type="text" name="physics" required><br>
-        <img src="images/computerscience.jpg" alt="COMPUTER SCIENCE IMAGE">
-        <br>
-        <label for="computerscience">COMPUTER SCIENCE:</label>
-        <input type="text" name="computerscience" required><br>
-        <img src="images/history.png" alt="HISTORY IMAGE">
-        <br>
-        <label for="history">HISTORY:</label>
-        <input type="text" name="history" required><br>
-        <img src="images/citizenship.png" alt="CITIZENSHIP IMAGE">
-        <br>
-        <label for="citizenship">CITIZENSHIP:</label>
-        <input type="text" name="citizenship" required><br>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="http://localhost:3000/keys">See All Grades</a>
+        <a href="index2.html">Improve Your Grades</a>
+    </div>
 
-        <input type="submit" value="Calculate GPA">
+    <h1>GPA Calculator</h1>
+    <form method="post" action="#" id="gpaForm">
+        <label for="name">Your Name</label>
+        <input type="text" name="name" required>
+
+        <label for="math">Math</label>
+        <input type="text" name="math" required>
+
+        <label for="english">English</label>
+        <input type="text" name="english" required>
+
+        <label for="hebrew">Hebrew</label>
+        <input type="text" name="hebrew" required>
+
+        <label for="bible">Bible</label>
+        <input type="text" name="bible" required>
+
+        <label for="culture">Culture</label>
+        <input type="text" name="culture" required>
+
+        <label for="physics">Physics</label>
+        <input type="text" name="physics" required>
+
+        <label for="computerscience">Computer Science</label>
+        <input type="text" name="computerscience" required>
+
+        <label for="history">History</label>
+        <input type="text" name="history" required>
+
+        <label for="citizenship">Citizenship</label>
+        <input type="text" name="citizenship" required>
+
+        <div class="submit-container">
+            <input type="submit" value="Calculate GPA" id="calculateButton">
+        </div>
     </form>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="popupContent"></p>
+        </div>
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+    
+        // Get the button that opens the modal
+        var calculateButton = document.getElementById("calculateButton");
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+    
+        // When the user clicks the button, open the modal
+        calculateButton.onclick = function() {
+            var totalSubjects = 0;
+            var totalMarks = 0;
+    
+            // Get the user's name
+            var userName = document.getElementsByName("name")[0].value;
+    
+            // Loop through all input fields with type="text" in the form
+            var inputFields = document.querySelectorAll('form input[type="text"]');
+            inputFields.forEach(function(inputField) {
+                var subjectMarks = parseFloat(inputField.value);
+                if (!isNaN(subjectMarks)) {
+                    totalMarks += subjectMarks;
+                    totalSubjects++;
+                }
+            });
+    
+            if (totalSubjects > 0) {
+                var averageGPA = totalMarks / totalSubjects;
+    
+                // Display the calculated GPA and user's name in the modal
+                document.getElementById("popupContent").innerText = userName + ", your average GPA is: " + averageGPA.toFixed(2);
+    
+                // Open the modal
+                modal.style.display = "block";
+            } else {
+                alert("Please enter valid numeric values for subjects.");
+            }
+        }
+    
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>    
+    
 </body>
 </html>
