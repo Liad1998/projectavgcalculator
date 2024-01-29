@@ -27,14 +27,21 @@ app.post('/', async (req, res) => {
     const citizenshipGrade = parseInt(req.body.citizenship.trim(), 10) || 0;
 
     const grades = [mathGrade, englishGrade, hebrewGrade, bibleGrade, cultureGrade, physicsGrade, computerscienceGrade, historyGrade, citizenshipGrade];
-
+    // Check if the input is a valid numeric grade
     if (!grades.every(grade => grade <= 100)) {
-        return res.sendFile(path.join(__dirname, 'public', 'index.html'), { error: 'Please enter valid numeric grades.' });
-
+        // Redirect to the same page with error message as query parameter
+        return res.redirect('/?error=Please enter valid numeric grades less equal to 100');
     }
-    if (!grades.every(grade => !isNaN(grade))) {
-        return res.sendFile(path.join(__dirname, 'public', 'index.html'), { error: 'Please enter valid numeric grades.' });
 
+    // Check if the input is a valid numeric ID with up to 9 digits
+    if (isNaN(parseInt(name)) || name.length != 9) {
+        // Redirect to the same page with error message as query parameter
+        return res.redirect('/?error=Please enter a valid numeric ID with 9 digits');
+    }
+    // Check if the input is a valid numeric grade
+    if (!grades.every(grade => !isNaN(grade))) {
+        // Redirect to the same page with error message as query parameter
+        return res.redirect('/?error=Please enter valid numeric grades less equal to 100');
     }
 
     const gpa = calculateGPA(grades);
@@ -70,40 +77,7 @@ app.post('/', async (req, res) => {
     res.redirect('/keys');
 });
 
-// // Express route to retrieve all data from Redis
-// app.get('/keys', (req, res) => {
-//     const redisClient = createClient({
-//         password: 'i4qy8JGPQPvwuc4ujHOm7UoCtHs7fZnd',
-//         host: 'redis-15461.c326.us-east-1-3.ec2.cloud.redislabs.com',
-//         port: 15461
-//     });
-    
-//     // Use the KEYS command to retrieve all keys
-//     redisClient.keys('*', (err, keys) => {
-//         if (err) {
-//             console.error('Error retrieving keys from Redis:', err);
-//             return res.status(500).send('Error retrieving keys from Redis');
-//         }
-        
-//         // Iterate over each key and retrieve its value
-//         const data = {};
-//         keys.forEach(key => {
-//             redisClient.get(key, (err, value) => {
-//                 if (err) {
-//                     console.error(`Error retrieving value for key ${key}:`, err);
-//                     return res.status(500).send(`Error retrieving value for key ${key}`);
-//                 }
-//                 data[key] = value; // Store the key-value pair in the data object
-//             });
-//         });
 
-//         // Close the Redis client after retrieving all data
-//         redisClient.quit(() => {
-//             res.json(data); // Send the data object as the response
-//         });
-//     });
-//     console.log('Data recieved!');
-// });
 // Express route to retrieve all data from Redis and display as a table
 app.get('/keys', (req, res) => {
     const redisClient = createClient({
@@ -147,14 +121,49 @@ app.get('/keys', (req, res) => {
 
 // Function to generate HTML table from JSON data
 function generateTableHtml(data) {
-    let tableHtml = '<table border="1">';
-    tableHtml += '<tr><th>Key</th><th>Value</th></tr>';
+    let tableHtml = `
+        <html>
+        <head>
+            <title>Redis Data</title>
+            <style>
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Redis Data</h1>
+            <table>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+    `;
+
     data.forEach(item => {
         tableHtml += `<tr><td>${item.key}</td><td>${item.value}</td></tr>`;
     });
-    tableHtml += '</table>';
+
+    tableHtml += `
+            </table>
+        </body>
+        </html>
+    `;
     return tableHtml;
 }
+
 
 
 app.listen(port, () => {
