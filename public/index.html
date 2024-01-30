@@ -19,7 +19,6 @@
     <form method="post" action="#" id="gpaForm">
         <label for="name">Your ID</label>
         <input type="number" name="name" required>
-        <div id="idError" class="error-message"></div> <!-- Error message container -->
         <label for="math">Math</label>
         <input type="number" name="math" required>
         <label for="english">English</label>
@@ -42,14 +41,5 @@
             <input type="submit" value="Calculate GPA" id="calculateButton">
         </div>
     </form>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p id="popupContent"></p>
-        </div>
-    </div>
 </body>
 </html>

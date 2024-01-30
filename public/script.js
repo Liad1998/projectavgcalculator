@@ -38,25 +38,8 @@ calculateButton.onclick = function() {
     });
     if (totalSubjects === 9) {
         var averageGPA = totalMarks / totalSubjects;
-        // Display the calculated GPA and user's name in the modal
-        document.getElementById("popupContent").innerText = userName + ", your average GPA is: " + averageGPA.toFixed(2);
-
-        // Open the modal
-        modal.style.display = "block";
-        window.location.href = "/"; 
+        alert(userName + " your average GPA is: " + averageGPA.toFixed(2));
 }};
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 // JavaScript code to extract and display error message from query parameter
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,10 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const error = urlParams.get('error');
     if (error) {
         // Display error message to the user
-        const errorMessageDiv = document.createElement('div');
-        errorMessageDiv.className = 'error-message';
-        errorMessageDiv.innerHTML = `<p>${error}</p>`;
-        document.getElementById('idError').appendChild(errorMessageDiv); // Append error message to the error container
         alert(error);
         // Check if there are no errors and redirect to home page
         window.location.href = '/';
