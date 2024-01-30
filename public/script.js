@@ -18,7 +18,7 @@ calculateButton.onclick = function() {
     // Check if the ID is valid
     var userId = parseInt(userName);
     if (isNaN(userId) || userName.length !== 9) {
-        alert("Please enter a valid numeric ID with 9 digits.");
+        window.location.href = "/?error=Please enter a valid numeric ID with 9 digits.";
         return;
     }
 
@@ -29,26 +29,22 @@ calculateButton.onclick = function() {
         if (!isNaN(subjectMarks)) {
             // Check if the grades are valid (between 0 and 100)
             if (subjectMarks < 0 || subjectMarks > 100) {
-                alert("Please enter valid numeric grades between 0 and 100.");
+                window.location.href = "/?error=Please enter valid numeric grades between 0 and 100.";
                 return;
             }
             totalMarks += subjectMarks;
             totalSubjects++;
         }
     });
+    if (totalSubjects === 9) {
+        var averageGPA = totalMarks / totalSubjects;
+        // Display the calculated GPA and user's name in the modal
+        document.getElementById("popupContent").innerText = userName + ", your average GPA is: " + averageGPA.toFixed(2);
 
-    if (totalSubjects === 0) {
-        alert("Please enter valid numeric values for subjects.");
-        return; // Exit early if there are no valid subjects
-    } 
-    
-    var averageGPA = totalMarks / totalSubjects;
-    // Display the calculated GPA and user's name in the modal
-    document.getElementById("popupContent").innerText = userName + ", your average GPA is: " + averageGPA.toFixed(2);
-
-    // Open the modal
-    modal.style.display = "block";
-}
+        // Open the modal
+        modal.style.display = "block";
+        window.location.href = "/"; 
+}};
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -72,5 +68,15 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessageDiv.className = 'error-message';
         errorMessageDiv.innerHTML = `<p>${error}</p>`;
         document.getElementById('idError').appendChild(errorMessageDiv); // Append error message to the error container
+        alert(error);
+        // Check if there are no errors and redirect to home page
+        window.location.href = '/';
+    } else {
+        // Clear error message if no error is present
+        const errorMessageDiv = document.getElementById('idError');
+        errorMessageDiv.innerHTML = ''; // Remove any existing error messages
+        // Check if there are no errors and redirect to home page
+        window.location.href = '/';
     }
 });
+
