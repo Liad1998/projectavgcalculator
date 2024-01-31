@@ -1,0 +1,43 @@
+<!-- views/keys.ejs -->
+<link rel="stylesheet" href="/style3.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redis Data Viewer</title>
+    <link rel="stylesheet" href="/style3.css"> <!-- Updated link to your CSS file -->
+</head>
+<body>
+    <div class="navbar">
+        <a href="http://localhost:3000/">Home</a>
+        <a href="http://localhost:3000/keys">See All Grades</a>
+        <a href="index2.html">Improve Your Grades</a>
+    </div>
+    <header>
+        <h1>Grades Of All Students</h1>
+    </header>
+    <main>
+        <section class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Grades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach(item => { %>
+                        <tr>
+                            <td><%= item.key %></td>
+                            <td><%= item.value %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
